@@ -1,0 +1,32 @@
+{
+  "scenario": "scenario-4",
+  "documentType": "Passport",
+  "riskLevel": "CRITICAL",
+  "riskScore": 92,
+  "recommendation": "ESCALATE",
+  "subject": {
+    "fullName": "Tariq Al-Mansoor",
+    "documentNumber": "M90124881",
+    "nationality": "Syrian",
+    "dateOfBirth": "03 Mar 1981",
+    "gender": "Male",
+    "dateOfIssue": "11 Aug 2020",
+    "dateOfExpiry": "11 Aug 2030",
+    "placeOfBirth": "Damascus, SYR",
+    "issuingCountry": "SYR"
+  },
+  "watchlistHit": {
+    "source": "Interpol Red Notice #A-2025-9921",
+    "reason": "Suspected Identity Forgery & Transnational Fraud Network",
+    "status": "ACTIVE"
+  },
+  "forensicAnomalies": [
+    "Physical photo replacement detected: dual background color gradients in portrait box",
+    "Digital text overlay identified over original passport number",
+    "Security microprint pattern erased beneath document holder name",
+    "Missing UV reflective security thread in optical scan"
+  ],
+  "faceSimilarity": 38,
+  "tamperingScore": 89,
+  "status": "Flagged"
+}

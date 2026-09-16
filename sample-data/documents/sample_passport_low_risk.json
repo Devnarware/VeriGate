@@ -1,0 +1,22 @@
+{
+  "scenario": "scenario-1",
+  "documentType": "Passport",
+  "riskLevel": "LOW",
+  "riskScore": 18,
+  "recommendation": "PROCEED",
+  "subject": {
+    "fullName": "Rahul Sharma",
+    "documentNumber": "P89201442",
+    "nationality": "Indian",
+    "dateOfBirth": "14 May 2002",
+    "gender": "Male",
+    "dateOfIssue": "14 May 2022",
+    "dateOfExpiry": "14 May 2032",
+    "placeOfBirth": "New Delhi, IND",
+    "issuingCountry": "IND"
+  },
+  "mrz": "P<INDRSHARMA<<RAHUL<<<<<<<<<<<<<<<<<<<<<<<\nP89201442<8IND0205142M3205144<<<<<<<<<<<<<<06",
+  "faceSimilarity": 96,
+  "tamperingScore": 6,
+  "status": "Verified"
+}

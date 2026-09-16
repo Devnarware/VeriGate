@@ -1,0 +1,26 @@
+{
+  "scenario": "scenario-3",
+  "documentType": "Passport",
+  "riskLevel": "HIGH",
+  "riskScore": 74,
+  "recommendation": "HOLD FOR SECONDARY VERIFICATION",
+  "subject": {
+    "fullName": "Elena Rostova",
+    "documentNumber": "P89123450",
+    "nationality": "Ukrainian",
+    "dateOfBirth": "22 Nov 1994 (Altered from 1984)",
+    "gender": "Female",
+    "dateOfIssue": "15 Jan 2019",
+    "dateOfExpiry": "15 Jan 2029 (Altered from 2024)",
+    "placeOfBirth": "Kyiv, UKR",
+    "issuingCountry": "UKR"
+  },
+  "forensicAnomalies": [
+    "Photo perimeter contains edge blending and clone-stamp blur artifacts",
+    "Expiry date region shows inconsistent JPEG quantization table (Error Level Analysis: High)",
+    "MRZ checksum mismatch indicates text manipulation in machine readable zone"
+  ],
+  "faceSimilarity": 52,
+  "tamperingScore": 76,
+  "status": "Flagged"
+}

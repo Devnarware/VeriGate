@@ -1,0 +1,4 @@
+# docker-compose.yml
+# Placeholder Compose file.
+# Will define services for: frontend, backend, ai-service, and mongodb,
+# once each service has been implemented.

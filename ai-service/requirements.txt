@@ -1,0 +1,3 @@
+# requirements.txt
+# Placeholder — Python dependencies will be listed here
+# (e.g. fastapi, uvicorn, opencv-python, pillow, pytesseract/paddleocr, etc.)

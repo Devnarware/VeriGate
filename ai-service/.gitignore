@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+.env.local
+models/*.pt
+models/*.onnx
+models/*.h5
+*.log
+.DS_Store

@@ -1,0 +1,26 @@
+{
+  "scenario": "scenario-2",
+  "documentType": "Visa",
+  "riskLevel": "MEDIUM",
+  "riskScore": 47,
+  "recommendation": "MANUAL REVIEW",
+  "subject": {
+    "fullName": "Daniel Wilson",
+    "visaNumber": "V-9921048",
+    "passportNumber": "GBR-902188",
+    "nationality": "British",
+    "dateOfBirth": "08 Sep 1988",
+    "issueDate": "10 Jan 2026",
+    "expiryDate": "10 Jul 2026",
+    "entryType": "Multiple Entry",
+    "stayDuration": "90 Days",
+    "issuingAuthority": "UK Visa Application Centre, London"
+  },
+  "inconsistencies": [
+    "Stay duration indicates 90 days but immigration entry stamp specifies 30 days maximum",
+    "Minor font variance in issuing authority heading"
+  ],
+  "faceSimilarity": 68,
+  "tamperingScore": 34,
+  "status": "Review"
+}
