@@ -40,6 +40,24 @@ app.use(morgan("dev"));
 // Static directories
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
+// Root Route
+app.get("/", (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "🛡️ VeriGate AI Document Screening Backend API is running.",
+    healthCheck: "/api/health",
+    endpoints: {
+      health: "/api/health",
+      scenarios: "/api/screening/scenarios",
+      history: "/api/screening/history",
+      cases: "/api/cases",
+      alerts: "/api/alerts",
+      watchlist: "/api/watchlist",
+      analytics: "/api/analytics"
+    }
+  });
+});
+
 // System Health Check
 app.get("/api/health", (req, res) => {
   res.status(200).json({
