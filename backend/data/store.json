@@ -58,6 +58,620 @@
   ],
   "screenings": [
     {
+      "id": "VG-2026-36176",
+      "verificationId": "VG-2026-36176",
+      "screeningId": "VG-2026-36176",
+      "personName": "Unextracted Subject",
+      "documentType": "National ID",
+      "documentNumber": "N/A",
+      "nationality": "N/A",
+      "riskScore": 28,
+      "riskLevel": "MEDIUM",
+      "risk": {
+        "score": 28,
+        "level": "MEDIUM",
+        "baseScore": 28,
+        "threatFloor": 0,
+        "threatRulesApplied": []
+      },
+      "recommendation": "MANUAL REVIEW",
+      "reasons": [
+        "Low OCR extraction confidence (37%): Key biographic fields unverified.",
+        "VALIDATION WARNING: Required identity attribute(s) [fullName, documentNumber] could not be reliably extracted from document.",
+        "VALIDATION WARNING: Document expiration date could not be determined from optical scan.",
+        "No significant digital tampering or compression anomalies detected (5/100).",
+        "Presented person photo was not supplied; 1:1 biometric facial comparison could not be verified.",
+        "Subject and document number clear across prototype security and immigration watchlists."
+      ],
+      "recommendedAction": "Document credentials verified valid. Conduct manual visual inspection of traveler's face against credential photograph at the counter.",
+      "decision": {
+        "decision": "MANUAL REVIEW",
+        "action": "Document credentials verified valid. Conduct manual visual inspection of traveler's face against credential photograph at the counter.",
+        "reasons": [
+          "Low OCR extraction confidence (37%): Key biographic fields unverified.",
+          "VALIDATION WARNING: Required identity attribute(s) [fullName, documentNumber] could not be reliably extracted from document.",
+          "VALIDATION WARNING: Document expiration date could not be determined from optical scan.",
+          "No significant digital tampering or compression anomalies detected (5/100).",
+          "Presented person photo was not supplied; 1:1 biometric facial comparison could not be verified.",
+          "Subject and document number clear across prototype security and immigration watchlists."
+        ]
+      },
+      "status": "Review",
+      "timestamp": "2026-09-18T07:28:13.865Z",
+      "isDemoScenario": false,
+      "analysisMode": "REAL_UPLOAD",
+      "processingTimes": {
+        "ocrMs": 505,
+        "validationMs": 0,
+        "tamperingMs": 0,
+        "syntheticMs": 1,
+        "faceMs": 0,
+        "watchlistMs": 0,
+        "totalMs": 506
+      },
+      "ocr": {
+        "fullName": null,
+        "documentType": "National ID",
+        "documentNumber": null,
+        "nationality": null,
+        "dateOfBirth": null,
+        "dateOfBirthIso": null,
+        "gender": null,
+        "dateOfIssue": null,
+        "dateOfExpiry": null,
+        "dateOfExpiryIso": null,
+        "placeOfBirth": null,
+        "issuingCountry": null,
+        "mrz": null,
+        "mrzData": null,
+        "visualFields": {},
+        "rawText": "EE\n\n! Say i, |\n~\n\nis 4 Fi > § | |\n\na = Hi 2\n\nIN sys\n\n9] J© 8 2 = a\n5 > 2 29 BR\n\n© ® 3 | A\n2s =\n\nbio 3 3 iE\n\nH N 3 . I\n\no g\n\nw []\n\nRET | Th 1 ’\n\nVER ae I '\nI\n\na ATR pd ee ;\nBRE v\n",
+        "confidence": 0.37,
+        "ocrStatus": "LOW_CONFIDENCE",
+        "fieldsDetected": 0,
+        "extractionTimeMs": 505,
+        "isDemoScenario": false,
+        "documentTypeSource": "Officer Supplied"
+      },
+      "validation": {
+        "score": "51%",
+        "numericScore": 51,
+        "passed": false,
+        "status": "fail",
+        "issues": [
+          {
+            "rule": "REQUIRED_FIELDS_MISSING",
+            "field": "fullName, documentNumber",
+            "severity": "High",
+            "message": "Required identity attribute(s) [fullName, documentNumber] could not be reliably extracted from document."
+          },
+          {
+            "rule": "EXPIRATION_DATE_UNAVAILABLE",
+            "field": "dateOfExpiry",
+            "severity": "Medium",
+            "message": "Document expiration date could not be determined from optical scan."
+          }
+        ],
+        "checksPerformed": [
+          "Required identity attributes inspection",
+          "Document validity and expiration check"
+        ],
+        "checksumDetails": [],
+        "failedChecksumCount": 0,
+        "verifiedFailedChecksumCount": 0,
+        "checksumUncertaintyCount": 0,
+        "hasChecksumFail": false,
+        "hasVerifiedChecksumFail": false,
+        "hasMultipleChecksumFailures": false,
+        "hasChecksumUncertainty": false,
+        "summary": "Required identity attribute(s) [fullName, documentNumber] could not be reliably extracted from document. | Document expiration date could not be determined from optical scan."
+      },
+      "tampering": {
+        "tamperingScore": 5,
+        "tamperingRisk": "Low",
+        "evidenceStatus": "LOW",
+        "indicators": [
+          "Image decoding limited: Mime type image/webp does not support decoding"
+        ],
+        "confidence": 0.94,
+        "details": {
+          "elaMean": 0,
+          "elaMax": 0,
+          "elaBlockVariance": 0,
+          "metadataSoftware": "No third-party editing signatures found",
+          "imageDimensions": "N/A"
+        },
+        "methodology": "Prototype image-forensic analysis using deterministic image heuristics (Error Level Analysis & metadata inspection)."
+      },
+      "synthetic": {
+        "syntheticScore": 20,
+        "suspicionLevel": "INCONCLUSIVE",
+        "indicators": [
+          "Synthetic analysis limited: Unable to decode image buffer (Mime type image/webp does not support decoding)."
+        ],
+        "metrics": {
+          "error": "Mime type image/webp does not support decoding"
+        },
+        "methodology": "Local spatial gradient & edge distribution heuristics.",
+        "limitations": "Image decoding failed."
+      },
+      "faceVerification": {
+        "isProvided": false,
+        "similarity": null,
+        "status": "NOT PROVIDED",
+        "evidenceStatus": "NOT_PROVIDED",
+        "confidence": 0,
+        "landmarksMatched": "N/A",
+        "livenessCheck": "Not Conducted",
+        "documentPhotoUrl": null,
+        "presentedPhotoUrl": null,
+        "assessment": "Presented person photograph was not supplied; biometric verification could not be completed.",
+        "methodology": "Prototype 1:1 facial image-similarity verification",
+        "limitations": "Biometric evidence unavailable: live photo not presented by traveler."
+      },
+      "watchlist": {
+        "matched": false,
+        "matchCount": 0,
+        "matchedField": null,
+        "recordIdentifier": null,
+        "alertType": null,
+        "matchReason": null,
+        "status": "UNAVAILABLE",
+        "matchDetails": null,
+        "summary": "Identity attributes unextracted; watchlist queries unavailable."
+      },
+      "signalContributions": {
+        "ocr": {
+          "score": 37,
+          "penalty": 45,
+          "weight": 15,
+          "weightedPoints": 6
+        },
+        "validation": {
+          "score": 51,
+          "penalty": 75,
+          "weight": 20,
+          "weightedPoints": 13
+        },
+        "tampering": {
+          "score": 5,
+          "penalty": 5,
+          "weight": 30,
+          "weightedPoints": 1
+        },
+        "synthetic": {
+          "score": 20,
+          "penalty": 20,
+          "weight": 15,
+          "weightedPoints": 3
+        },
+        "face": {
+          "score": null,
+          "isProvided": false,
+          "penalty": 25,
+          "weight": 25,
+          "weightedPoints": 5
+        },
+        "watchlist": {
+          "matched": false,
+          "penalty": 0,
+          "weight": 10,
+          "weightedPoints": 0
+        }
+      },
+      "signalEvidence": {
+        "ocr": {
+          "status": "UNCERTAIN",
+          "confidence": 0.37,
+          "fieldsDetected": 0
+        },
+        "validation": {
+          "status": "FAIL",
+          "anomalies": [
+            {
+              "rule": "REQUIRED_FIELDS_MISSING",
+              "field": "fullName, documentNumber",
+              "severity": "High",
+              "message": "Required identity attribute(s) [fullName, documentNumber] could not be reliably extracted from document."
+            },
+            {
+              "rule": "EXPIRATION_DATE_UNAVAILABLE",
+              "field": "dateOfExpiry",
+              "severity": "Medium",
+              "message": "Document expiration date could not be determined from optical scan."
+            }
+          ],
+          "numericScore": 51,
+          "hasChecksumFail": false,
+          "hasMultipleChecksumFailures": false,
+          "checksumDetails": []
+        },
+        "tampering": {
+          "status": "LOW",
+          "score": 5,
+          "indicators": [
+            "Image decoding limited: Mime type image/webp does not support decoding"
+          ]
+        },
+        "synthetic": {
+          "status": "INCONCLUSIVE",
+          "score": 20,
+          "indicators": [
+            "Synthetic analysis limited: Unable to decode image buffer (Mime type image/webp does not support decoding)."
+          ]
+        },
+        "face": {
+          "status": "NOT_PROVIDED",
+          "similarity": null,
+          "isProvided": false
+        },
+        "watchlist": {
+          "status": "CLEAR",
+          "match": false,
+          "record": null
+        }
+      },
+      "checks": [
+        {
+          "id": "ocr",
+          "title": "OCR Extraction",
+          "description": "Could not reliably parse identity fields from document.",
+          "status": "fail",
+          "score": "37%"
+        },
+        {
+          "id": "validation",
+          "title": "Document Validation",
+          "description": "Required identity attribute(s) [fullName, documentNumber] could not be reliably extracted from document. | Document expiration date could not be determined from optical scan.",
+          "status": "fail",
+          "score": "51%"
+        },
+        {
+          "id": "tampering",
+          "title": "Tampering Forensics",
+          "description": "Image decoding limited: Mime type image/webp does not support decoding",
+          "status": "pass",
+          "score": "95%"
+        },
+        {
+          "id": "synthetic",
+          "title": "Synthetic Detection",
+          "description": "Synthetic analysis limited: Unable to decode image buffer (Mime type image/webp does not support decoding).",
+          "status": "fail",
+          "score": "80%"
+        },
+        {
+          "id": "face",
+          "title": "Face Verification",
+          "description": "Presented person photograph was not supplied; biometric verification could not be completed.",
+          "status": "warning",
+          "score": "UNVERIFIED"
+        },
+        {
+          "id": "watchlist",
+          "title": "Watchlist Check",
+          "description": "Identity attributes unextracted; watchlist queries unavailable.",
+          "status": "pass",
+          "score": "CLEAR"
+        }
+      ]
+    },
+    {
+      "id": "VG-2026-51813",
+      "verificationId": "VG-2026-51813",
+      "screeningId": "VG-2026-51813",
+      "personName": "Unextracted Subject",
+      "documentType": "Passport",
+      "documentNumber": "N/A",
+      "nationality": "N/A",
+      "riskScore": 80,
+      "riskLevel": "HIGH",
+      "risk": {
+        "score": 80,
+        "level": "HIGH",
+        "baseScore": 28,
+        "threatFloor": 80,
+        "threatRulesApplied": [
+          "CATASTROPHIC_VALIDATION_FAILURE"
+        ]
+      },
+      "recommendation": "MANUAL REVIEW",
+      "reasons": [
+        "Low OCR extraction confidence (37%): Key biographic fields unverified.",
+        "VALIDATION WARNING: Required identity attribute(s) [fullName, documentNumber, dateOfBirth, dateOfExpiry] could not be reliably extracted from document.",
+        "VALIDATION WARNING: Document expiration date could not be determined from optical scan.",
+        "MRZ CHECKSUM ANOMALY: Standard ICAO Doc 9303 Machine Readable Zone could not be parsed from passport optical scan.",
+        "No significant digital tampering or compression anomalies detected (5/100).",
+        "Presented person photo was not supplied; 1:1 biometric facial comparison could not be verified.",
+        "Subject and document number clear across prototype security and immigration watchlists."
+      ],
+      "recommendedAction": "Document credentials verified valid. Conduct manual visual inspection of traveler's face against credential photograph at the counter.",
+      "decision": {
+        "decision": "MANUAL REVIEW",
+        "action": "Document credentials verified valid. Conduct manual visual inspection of traveler's face against credential photograph at the counter.",
+        "reasons": [
+          "Low OCR extraction confidence (37%): Key biographic fields unverified.",
+          "VALIDATION WARNING: Required identity attribute(s) [fullName, documentNumber, dateOfBirth, dateOfExpiry] could not be reliably extracted from document.",
+          "VALIDATION WARNING: Document expiration date could not be determined from optical scan.",
+          "MRZ CHECKSUM ANOMALY: Standard ICAO Doc 9303 Machine Readable Zone could not be parsed from passport optical scan.",
+          "No significant digital tampering or compression anomalies detected (5/100).",
+          "Presented person photo was not supplied; 1:1 biometric facial comparison could not be verified.",
+          "Subject and document number clear across prototype security and immigration watchlists."
+        ]
+      },
+      "status": "Flagged",
+      "timestamp": "2026-09-18T07:25:39.779Z",
+      "isDemoScenario": false,
+      "analysisMode": "REAL_UPLOAD",
+      "processingTimes": {
+        "ocrMs": 473,
+        "validationMs": 0,
+        "tamperingMs": 20,
+        "syntheticMs": 1,
+        "faceMs": 0,
+        "watchlistMs": 0,
+        "totalMs": 494
+      },
+      "ocr": {
+        "fullName": null,
+        "documentType": "Passport",
+        "documentNumber": null,
+        "nationality": null,
+        "dateOfBirth": null,
+        "dateOfBirthIso": null,
+        "gender": null,
+        "dateOfIssue": null,
+        "dateOfExpiry": null,
+        "dateOfExpiryIso": null,
+        "placeOfBirth": null,
+        "issuingCountry": null,
+        "mrz": null,
+        "mrzData": null,
+        "visualFields": {},
+        "rawText": "EE\n\n! Say i, |\n~\n\nis 4 Fi > § | |\n\na = Hi 2\n\nIN sys\n\n9] J© 8 2 = a\n5 > 2 29 BR\n\n© ® 3 | A\n2s =\n\nbio 3 3 iE\n\nH N 3 . I\n\no g\n\nw []\n\nRET | Th 1 ’\n\nVER ae I '\nI\n\na ATR pd ee ;\nBRE v\n",
+        "confidence": 0.37,
+        "ocrStatus": "LOW_CONFIDENCE",
+        "fieldsDetected": 0,
+        "extractionTimeMs": 473,
+        "isDemoScenario": false,
+        "documentTypeSource": "Officer Supplied"
+      },
+      "validation": {
+        "score": "26%",
+        "numericScore": 26,
+        "passed": false,
+        "status": "fail",
+        "issues": [
+          {
+            "rule": "REQUIRED_FIELDS_MISSING",
+            "field": "fullName, documentNumber, dateOfBirth, dateOfExpiry",
+            "severity": "High",
+            "message": "Required identity attribute(s) [fullName, documentNumber, dateOfBirth, dateOfExpiry] could not be reliably extracted from document."
+          },
+          {
+            "rule": "EXPIRATION_DATE_UNAVAILABLE",
+            "field": "dateOfExpiry",
+            "severity": "Medium",
+            "message": "Document expiration date could not be determined from optical scan."
+          },
+          {
+            "rule": "MRZ_UNAVAILABLE",
+            "field": "mrz",
+            "severity": "Medium",
+            "message": "Standard ICAO Doc 9303 Machine Readable Zone could not be parsed from passport optical scan."
+          }
+        ],
+        "checksPerformed": [
+          "Required identity attributes inspection",
+          "Document validity and expiration check"
+        ],
+        "checksumDetails": [],
+        "failedChecksumCount": 0,
+        "verifiedFailedChecksumCount": 0,
+        "checksumUncertaintyCount": 1,
+        "hasChecksumFail": false,
+        "hasVerifiedChecksumFail": false,
+        "hasMultipleChecksumFailures": false,
+        "hasChecksumUncertainty": true,
+        "summary": "Required identity attribute(s) [fullName, documentNumber, dateOfBirth, dateOfExpiry] could not be reliably extracted from document. | Document expiration date could not be determined from optical scan. | Standard ICAO Doc 9303 Machine Readable Zone could not be parsed from passport optical scan."
+      },
+      "tampering": {
+        "tamperingScore": 5,
+        "tamperingRisk": "Low",
+        "evidenceStatus": "LOW",
+        "indicators": [
+          "Image decoding limited: Mime type image/webp does not support decoding"
+        ],
+        "confidence": 0.94,
+        "details": {
+          "elaMean": 0,
+          "elaMax": 0,
+          "elaBlockVariance": 0,
+          "metadataSoftware": "No third-party editing signatures found",
+          "imageDimensions": "N/A"
+        },
+        "methodology": "Prototype image-forensic analysis using deterministic image heuristics (Error Level Analysis & metadata inspection)."
+      },
+      "synthetic": {
+        "syntheticScore": 20,
+        "suspicionLevel": "INCONCLUSIVE",
+        "indicators": [
+          "Synthetic analysis limited: Unable to decode image buffer (Mime type image/webp does not support decoding)."
+        ],
+        "metrics": {
+          "error": "Mime type image/webp does not support decoding"
+        },
+        "methodology": "Local spatial gradient & edge distribution heuristics.",
+        "limitations": "Image decoding failed."
+      },
+      "faceVerification": {
+        "isProvided": false,
+        "similarity": null,
+        "status": "NOT PROVIDED",
+        "evidenceStatus": "NOT_PROVIDED",
+        "confidence": 0,
+        "landmarksMatched": "N/A",
+        "livenessCheck": "Not Conducted",
+        "documentPhotoUrl": null,
+        "presentedPhotoUrl": null,
+        "assessment": "Presented person photograph was not supplied; biometric verification could not be completed.",
+        "methodology": "Prototype 1:1 facial image-similarity verification",
+        "limitations": "Biometric evidence unavailable: live photo not presented by traveler."
+      },
+      "watchlist": {
+        "matched": false,
+        "matchCount": 0,
+        "matchedField": null,
+        "recordIdentifier": null,
+        "alertType": null,
+        "matchReason": null,
+        "status": "UNAVAILABLE",
+        "matchDetails": null,
+        "summary": "Identity attributes unextracted; watchlist queries unavailable."
+      },
+      "signalContributions": {
+        "ocr": {
+          "score": 37,
+          "penalty": 45,
+          "weight": 15,
+          "weightedPoints": 6
+        },
+        "validation": {
+          "score": 26,
+          "penalty": 75,
+          "weight": 20,
+          "weightedPoints": 13
+        },
+        "tampering": {
+          "score": 5,
+          "penalty": 5,
+          "weight": 30,
+          "weightedPoints": 1
+        },
+        "synthetic": {
+          "score": 20,
+          "penalty": 20,
+          "weight": 15,
+          "weightedPoints": 3
+        },
+        "face": {
+          "score": null,
+          "isProvided": false,
+          "penalty": 25,
+          "weight": 25,
+          "weightedPoints": 5
+        },
+        "watchlist": {
+          "matched": false,
+          "penalty": 0,
+          "weight": 10,
+          "weightedPoints": 0
+        }
+      },
+      "signalEvidence": {
+        "ocr": {
+          "status": "UNCERTAIN",
+          "confidence": 0.37,
+          "fieldsDetected": 0
+        },
+        "validation": {
+          "status": "FAIL",
+          "anomalies": [
+            {
+              "rule": "REQUIRED_FIELDS_MISSING",
+              "field": "fullName, documentNumber, dateOfBirth, dateOfExpiry",
+              "severity": "High",
+              "message": "Required identity attribute(s) [fullName, documentNumber, dateOfBirth, dateOfExpiry] could not be reliably extracted from document."
+            },
+            {
+              "rule": "EXPIRATION_DATE_UNAVAILABLE",
+              "field": "dateOfExpiry",
+              "severity": "Medium",
+              "message": "Document expiration date could not be determined from optical scan."
+            },
+            {
+              "rule": "MRZ_UNAVAILABLE",
+              "field": "mrz",
+              "severity": "Medium",
+              "message": "Standard ICAO Doc 9303 Machine Readable Zone could not be parsed from passport optical scan."
+            }
+          ],
+          "numericScore": 26,
+          "hasChecksumFail": false,
+          "hasMultipleChecksumFailures": false,
+          "checksumDetails": []
+        },
+        "tampering": {
+          "status": "LOW",
+          "score": 5,
+          "indicators": [
+            "Image decoding limited: Mime type image/webp does not support decoding"
+          ]
+        },
+        "synthetic": {
+          "status": "INCONCLUSIVE",
+          "score": 20,
+          "indicators": [
+            "Synthetic analysis limited: Unable to decode image buffer (Mime type image/webp does not support decoding)."
+          ]
+        },
+        "face": {
+          "status": "NOT_PROVIDED",
+          "similarity": null,
+          "isProvided": false
+        },
+        "watchlist": {
+          "status": "CLEAR",
+          "match": false,
+          "record": null
+        }
+      },
+      "checks": [
+        {
+          "id": "ocr",
+          "title": "OCR Extraction",
+          "description": "Could not reliably parse identity fields from document.",
+          "status": "fail",
+          "score": "37%"
+        },
+        {
+          "id": "validation",
+          "title": "Document Validation",
+          "description": "Required identity attribute(s) [fullName, documentNumber, dateOfBirth, dateOfExpiry] could not be reliably extracted from document. | Document expiration date could not be determined from optical scan. | Standard ICAO Doc 9303 Machine Readable Zone could not be parsed from passport optical scan.",
+          "status": "fail",
+          "score": "26%"
+        },
+        {
+          "id": "tampering",
+          "title": "Tampering Forensics",
+          "description": "Image decoding limited: Mime type image/webp does not support decoding",
+          "status": "pass",
+          "score": "95%"
+        },
+        {
+          "id": "synthetic",
+          "title": "Synthetic Detection",
+          "description": "Synthetic analysis limited: Unable to decode image buffer (Mime type image/webp does not support decoding).",
+          "status": "fail",
+          "score": "80%"
+        },
+        {
+          "id": "face",
+          "title": "Face Verification",
+          "description": "Presented person photograph was not supplied; biometric verification could not be completed.",
+          "status": "warning",
+          "score": "UNVERIFIED"
+        },
+        {
+          "id": "watchlist",
+          "title": "Watchlist Check",
+          "description": "Identity attributes unextracted; watchlist queries unavailable.",
+          "status": "pass",
+          "score": "CLEAR"
+        }
+      ]
+    },
+    {
       "id": "VG-2026-60569",
       "verificationId": "VG-2026-60569",
       "screeningId": "VG-2026-60569",
@@ -119095,6 +119709,17 @@
   ],
   "alerts": [
     {
+      "id": "ALT-245",
+      "severity": "High",
+      "type": "Document Tampering",
+      "title": "High risk document detected: null",
+      "description": "Low OCR extraction confidence (37%): Key biographic fields unverified.",
+      "verificationId": "VG-2026-51813",
+      "time": "Just now",
+      "timestamp": "2026-09-18T07:25:39.792Z",
+      "status": "New"
+    },
+    {
       "id": "ALT-354",
       "severity": "Critical",
       "type": "Document Tampering",
@@ -121398,6 +122023,36 @@
     }
   ],
   "auditLogs": [
+    {
+      "id": "AUD-493876",
+      "timestamp": "2026-09-18T07:28:13.876Z",
+      "officer": "Alex Singh",
+      "action": "Verification Completed",
+      "entity": "Screening",
+      "entityId": "VG-2026-36176",
+      "result": "Risk Score: 28/100 (MANUAL REVIEW)",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "AUD-339808",
+      "timestamp": "2026-09-18T07:25:39.808Z",
+      "officer": "Alex Singh",
+      "action": "Verification Completed",
+      "entity": "Screening",
+      "entityId": "VG-2026-51813",
+      "result": "Risk Score: 80/100 (MANUAL REVIEW)",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "AUD-339800",
+      "timestamp": "2026-09-18T07:25:39.800Z",
+      "officer": "Alex Singh",
+      "action": "Alert Generated",
+      "entity": "Alert",
+      "entityId": "ALT-245",
+      "result": "HIGH Risk Triggered",
+      "ipAddress": "127.0.0.1"
+    },
     {
       "id": "AUD-676073",
       "timestamp": "2026-09-16T06:54:36.073Z",
