@@ -247,7 +247,7 @@ export default function Settings() {
                 <div className="health-status-dot green"></div>
                 <div>
                   <strong>Backend REST API Server</strong>
-                  <small>http://localhost:5000 · Status: Operational</small>
+                  <small>{(import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace(/\/api$/, '') : 'http://localhost:5001')} · Status: Operational</small>
                 </div>
               </div>
 
