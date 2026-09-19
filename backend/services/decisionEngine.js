@@ -1,6 +1,6 @@
 // decisionEngine.js
-// Explainable Verification Decision Support Engine
-// Synthesizes transparent justifications and actionable officer directives from actual findings.
+// Verification Decision Support Engine
+// Synthesizes transparent justifications and actionable directives from actual findings.
 
 export class DecisionEngine {
   /**
@@ -8,71 +8,12 @@ export class DecisionEngine {
    * @param {number} riskScore - Composite score (0-100)
    * @param {string} riskLevel - LOW / MEDIUM / HIGH / CRITICAL
    * @param {object} signals - OCR, Validation, Tampering, Face, Watchlist
-   * @param {string|null} scenario - SIH scenario ID or null for real
    */
-  static evaluate(riskScore, riskLevel, signals = {}, scenario = null) {
+  static evaluate(riskScore, riskLevel, signals = {}) {
     const reasons = [];
     let recommendation = "PROCEED";
-    let recommendedAction = "Proceed with standard traveler verification.";
+    let recommendedAction = "Proceed with standard verification.";
 
-    // =========================================================================
-    // BRANCH A: DETERMINISTIC SIH DEMO SCENARIOS
-    // =========================================================================
-    if (scenario === "scenario-1") {
-      return {
-        recommendation: "PROCEED",
-        reasons: [
-          "Required information extracted with high OCR confidence (98%).",
-          "Document validity and chronological checks passed without warnings.",
-          "No visual tampering or compression anomalies detected.",
-          "Strong biometric face similarity between document and presented person (96%).",
-          "No match found against security watchlist databases.",
-        ],
-        recommendedAction: "Allow passenger transit. No secondary inspection required.",
-      };
-    }
-
-    if (scenario === "scenario-2") {
-      return {
-        recommendation: "MANUAL REVIEW",
-        reasons: [
-          "Visa validity duration (90 Days) contradicts immigration stamp limit (30 Days).",
-          "Possible font or printing variance in issuing authority region (Tampering score: 34/100).",
-          "Moderate facial similarity (68%) requires officer visual confirmation.",
-        ],
-        recommendedAction: "Inspect original document under white & UV light and verify return flight booking.",
-      };
-    }
-
-    if (scenario === "scenario-3") {
-      return {
-        recommendation: "HOLD FOR SECONDARY VERIFICATION",
-        reasons: [
-          "Possible document alteration detected in expiration and photo boundaries.",
-          "High tampering score (76/100): localized compression artifacts on date fields.",
-          "Biometric facial similarity (52%) is below acceptable threshold.",
-          "MRZ checksum mismatch indicates text manipulation.",
-        ],
-        recommendedAction: "Hold passenger for secondary immigration screening and forensics laboratory examination.",
-      };
-    }
-
-    if (scenario === "scenario-4") {
-      return {
-        recommendation: "ESCALATE",
-        reasons: [
-          "Critical Watchlist Match: Flagged under Interpol Red Notice #A-2025-9921.",
-          "Severe physical and digital tampering indicators detected on document substrate.",
-          "Identity mismatch: biometric landmarks diverge significantly from document portrait (38%).",
-          "Counterfeit security features and missing optical safety elements.",
-        ],
-        recommendedAction: "Immediate officer detention of subject and alert Border Police Commander.",
-      };
-    }
-
-    // =========================================================================
-    // BRANCH B: REAL DOCUMENT FINDINGS SYNTHESIS
-    // =========================================================================
     const { ocr = {}, validation = {}, tampering = {}, synthetic = {}, faceVerification = {}, watchlist = {} } = signals;
 
     // Signal 1: Watchlist Evaluation

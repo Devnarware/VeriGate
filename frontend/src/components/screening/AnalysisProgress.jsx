@@ -6,61 +6,65 @@ import {
   Search,
   Activity,
   CheckCircle2,
-  Check,
+  Loader2,
 } from "lucide-react";
 
 const steps = [
   {
     id: "ocr",
-    label: "OCR Extraction",
-    description: "Reading structured document fields",
+    label: "OCR & MRZ Extraction",
+    description: "Parsing visual identity fields & ICAO Doc 9303 MRZ",
     icon: FileSearch,
   },
   {
     id: "validation",
     label: "Document Validation",
-    description: "Checking validity, expiry & rules",
+    description: "Evaluating Modulus-10 checksums & date consistency",
     icon: ShieldCheck,
   },
   {
     id: "tampering",
     label: "Tampering Forensics",
-    description: "Inspecting visual anomalies & compression",
+    description: "Running Error Level Analysis (ELA) for digital manipulation",
     icon: ScanLine,
   },
   {
+    id: "synthetic",
+    label: "Synthetic & Edge Analysis",
+    description: "Measuring Laplacian edge variance & texture uniformity",
+    icon: Activity,
+  },
+  {
     id: "face",
-    label: "Face Verification",
-    description: "Comparing document photo with live face",
+    label: "Face Comparison",
+    description: "Evaluating pixel luminance similarity against comparison photo",
     icon: UserRoundCheck,
   },
   {
     id: "watchlist",
-    label: "Watchlist Check",
-    description: "Screening against security alerts",
+    label: "Prototype Watchlist Check",
+    description: "Screening against local prototype test records",
     icon: Search,
   },
   {
-    id: "risk",
-    label: "Risk Assessment",
-    description: "Evaluating weighted multi-signal engine",
-    icon: Activity,
-  },
-  {
     id: "decision",
-    label: "Decision Support",
-    description: "Synthesizing explainable recommendation",
+    label: "Decision Synthesis",
+    description: "Calculating multi-signal risk & explainable directives",
     icon: CheckCircle2,
   },
 ];
 
-export default function AnalysisProgress({ currentStep }) {
+export default function AnalysisProgress({ currentStep = 0 }) {
   return (
     <div className="analysis-progress">
       <div className="screening-section-header">
         <div>
-          <h2>Verification in Progress</h2>
-          <p>VeriGate multi-layer pipeline analyzing document across 7 independent security signals.</p>
+          <h2>Screening in Progress</h2>
+          <p>Analyzing document image through VeriGate's multi-signal pipeline.</p>
+        </div>
+        <div className="processing-indicator">
+          <Loader2 size={18} className="spin-icon" />
+          <span>Processing Optical & Forensic Signals...</span>
         </div>
       </div>
 
@@ -76,7 +80,7 @@ export default function AnalysisProgress({ currentStep }) {
               className={`analysis-step ${active ? "active" : ""} ${completed ? "completed" : ""}`}
             >
               <div className="step-icon">
-                {completed ? <Check size={17} /> : <Icon size={17} />}
+                {active ? <Loader2 size={16} className="spin-icon" /> : <Icon size={16} />}
               </div>
 
               <div className="step-content">
@@ -85,7 +89,7 @@ export default function AnalysisProgress({ currentStep }) {
               </div>
 
               {active && <div className="step-processing">Analyzing...</div>}
-              {completed && <div className="step-complete">Verified</div>}
+              {completed && <div className="step-complete">Completed</div>}
             </div>
           );
         })}

@@ -1,128 +1,74 @@
 import {
   LayoutDashboard,
   ScanLine,
-  FolderOpen,
-  History,
-  Bell,
   ShieldCheck,
-  BarChart3,
-  FileText,
-  Settings,
+  Lock,
 } from "lucide-react";
-
 import { NavLink } from "react-router-dom";
 
 const navigation = [
   {
-    label: "Dashboard",
+    label: "Home",
     icon: LayoutDashboard,
     path: "/",
   },
   {
-    label: "Document Screening",
+    label: "Scan Document",
     icon: ScanLine,
-    path: "/screening",
-  },
-  {
-    label: "Cases",
-    icon: FolderOpen,
-    path: "/cases",
-  },
-  {
-    label: "Verification History",
-    icon: History,
-    path: "/history",
-  },
-  {
-    label: "Alerts",
-    icon: Bell,
-    path: "/alerts",
-  },
-  {
-    label: "Watchlist",
-    icon: ShieldCheck,
-    path: "/watchlist",
-  },
-  {
-    label: "Analytics",
-    icon: BarChart3,
-    path: "/analytics",
-  },
-  {
-    label: "Reports",
-    icon: FileText,
-    path: "/reports",
+    path: "/scan",
   },
 ];
 
 export default function Sidebar() {
   return (
     <aside className="sidebar">
+      {/* Brand Header */}
+      <div className="sidebar-brand-header">
+        <div className="brand-badge-icon">
+          <ShieldCheck size={22} />
+        </div>
+        <div className="brand-text">
+          <strong>VeriGate</strong>
+          <span>Document Screening</span>
+        </div>
+      </div>
 
       {/* Navigation */}
       <nav className="navigation">
-
-        <div className="nav-section-title">
-          MAIN
-        </div>
+        <div className="nav-section-title">NAVIGATION</div>
 
         {navigation.map((item) => {
           const Icon = item.icon;
-
           return (
             <NavLink
               key={item.path}
               to={item.path}
               end={item.path === "/"}
-              className={({ isActive }) =>
-                `nav-item ${isActive ? "active" : ""}`
-              }
+              className={({ isActive }) => `nav-item ${isActive ? "active" : ""}`}
             >
               <Icon size={18} strokeWidth={1.8} />
               <span>{item.label}</span>
             </NavLink>
           );
         })}
-
-        <div className="nav-section-title settings-title">
-          SYSTEM
-        </div>
-
-        <NavLink
-          to="/settings"
-          className={({ isActive }) =>
-            `nav-item ${isActive ? "active" : ""}`
-          }
-        >
-          <Settings size={18} strokeWidth={1.8} />
-          <span>Settings</span>
-        </NavLink>
-
       </nav>
 
       {/* Sidebar Footer */}
       <div className="sidebar-footer">
-
-        <div className="system-status">
-          <span className="status-dot"></span>
-
+        <div className="privacy-badge">
+          <Lock size={14} />
           <div>
-            <strong>System Operational</strong>
-            <small>All services running</small>
+            <strong>Privacy Assured</strong>
+            <small>Documents analyzed in-memory & deleted immediately</small>
           </div>
         </div>
 
-        <div className="sidebar-brand">
-          <strong>VeriGate</strong>
-          <span>Identity Security Platform</span>
+        <div className="version-tag">
+          <span>VeriGate v1.0</span>
+          <span className="version-dot"></span>
+          <span>Open Screening</span>
         </div>
-
-        <div className="version">
-          Version 1.0
-        </div>
-
       </div>
-
     </aside>
   );
 }

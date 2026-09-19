@@ -1,6 +1,7 @@
 // tamperingService.js
-// Genuine Image-Forensic Heuristics & Error Level Analysis (ELA)
-// Clearly separates deterministic SIH Demo Scenarios from real document screening.
+// Image-Forensic Heuristics & Error Level Analysis (ELA)
+// NOTE: This is a heuristic analysis tool — it can detect indicators but cannot
+// definitively prove or disprove document authenticity.
 
 import { Jimp } from "jimp";
 import fs from "fs";
@@ -10,91 +11,8 @@ export class TamperingService {
    * Forensic analysis entry point
    * @param {string} documentType
    * @param {object} fileInfo - Multer file metadata
-   * @param {string|null} scenario - SIH scenario ID or null for real
    */
-  static async analyze(documentType, fileInfo = null, scenario = null) {
-    // =========================================================================
-    // BRANCH A: DETERMINISTIC SIH 2026 DEMO SCENARIOS
-    // =========================================================================
-    if (scenario === "scenario-1") {
-      return {
-        tamperingScore: 6,
-        tamperingRisk: "Low",
-        indicators: [],
-        confidence: 0.96,
-        details: {
-          elaAnalysis: "Uniform error level compression across all blocks",
-          fontConsistency: "Original security typeface preserved",
-          photoBoundary: "Seamless laminate integration, no edge blur",
-          stampIntegrity: "Official consular micro-lines intact",
-        },
-        methodology: "SIH Scenario 1 Preset",
-      };
-    }
-
-    if (scenario === "scenario-2") {
-      return {
-        tamperingScore: 34,
-        tamperingRisk: "Medium",
-        indicators: [
-          "Minor font weight variation detected in issuing authority field",
-          "Secondary compression grid variance along visa boundary",
-        ],
-        confidence: 0.85,
-        details: {
-          elaAnalysis: "Localized slight variance in bottom right quadrant",
-          fontConsistency: "Variance detected: Helvetica-Neue substituted for official OCR-B font",
-          photoBoundary: "Consistent with standard issuance",
-          stampIntegrity: "Border stamp shows 12% pixel misalignment",
-        },
-        methodology: "SIH Scenario 2 Preset",
-      };
-    }
-
-    if (scenario === "scenario-3") {
-      return {
-        tamperingScore: 76,
-        tamperingRisk: "High",
-        indicators: [
-          "Photo perimeter contains edge blending and clone-stamp blur artifacts",
-          "Expiry date region shows inconsistent JPEG quantization table (Error Level Analysis: High)",
-          "MRZ checksum mismatch indicates text manipulation in machine readable zone",
-        ],
-        confidence: 0.92,
-        details: {
-          elaAnalysis: "Pronounced high-frequency resaving traces on date of birth and expiry",
-          fontConsistency: "Irregular character kerning on year digits '29' vs '20'",
-          photoBoundary: "Discontinuous background micro-pattern around headshot outline",
-          stampIntegrity: "Embossed state seal fails optical depth reconstruction",
-        },
-        methodology: "SIH Scenario 3 Preset",
-      };
-    }
-
-    if (scenario === "scenario-4") {
-      return {
-        tamperingScore: 89,
-        tamperingRisk: "Critical",
-        indicators: [
-          "Physical photo replacement detected: dual background color gradients in portrait box",
-          "Digital text overlay identified over original passport number",
-          "Security microprint pattern erased beneath document holder name",
-          "Missing UV reflective security thread in optical scan",
-        ],
-        confidence: 0.95,
-        details: {
-          elaAnalysis: "Severe multi-stage image recomposition and splicing detected",
-          fontConsistency: "Digital font overlay detected; non-conforming glyph widths",
-          photoBoundary: "Laminate cut marks and synthetic pixel feathering around portrait",
-          stampIntegrity: "Counterfeit ink signature with repeated digital stamp clone pattern",
-        },
-        methodology: "SIH Scenario 4 Preset",
-      };
-    }
-
-    // =========================================================================
-    // BRANCH B: REAL DOCUMENT IMAGE-FORENSIC HEURISTICS
-    // =========================================================================
+  static async analyze(documentType, fileInfo = null) {
     if (!fileInfo || !fileInfo.path || !fs.existsSync(fileInfo.path)) {
       return {
         tamperingScore: 0,

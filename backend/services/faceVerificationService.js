@@ -1,6 +1,7 @@
 // faceVerificationService.js
-// Genuine 1:1 Biometric Comparison & Safe Handling of Missing Live Photos
-// Clearly separates deterministic SIH Demo Scenarios from real document screening.
+// 1:1 Image Similarity Comparison (Heuristic)
+// IMPORTANT: This uses 64x64 pixel luminance comparison — NOT biometric-grade
+// facial recognition. Results are heuristic indicators only.
 
 import { Jimp } from "jimp";
 import fs from "fs";
@@ -10,77 +11,9 @@ export class FaceVerificationService {
    * Compare document portrait with presented live photo
    * @param {object|null} documentFile - Multer file object for the identity document
    * @param {object|null} livePhotoFile - Multer file object for presented person
-   * @param {string|null} scenario - SIH scenario ID or null for real
    */
-  static async compare(documentFile = null, livePhotoFile = null, scenario = null) {
-    // =========================================================================
-    // BRANCH A: DETERMINISTIC SIH 2026 DEMO SCENARIOS
-    // =========================================================================
-    if (scenario === "scenario-1") {
-      return {
-        isProvided: true,
-        similarity: 96,
-        status: "Strong Match",
-        confidence: 0.95,
-        landmarksMatched: "68 / 68 Biometric Points",
-        livenessCheck: "Live Present (Blink & Head Pose Verified)",
-        documentPhotoUrl: "/assets/demo-doc-face-rahul.png",
-        presentedPhotoUrl: "/assets/demo-live-face-rahul.png",
-        assessment: "Biometric facial geometry confirms document photograph matches presented person.",
-        methodology: "SIH Scenario 1 Preset",
-      };
-    }
-
-    if (scenario === "scenario-2") {
-      return {
-        isProvided: true,
-        similarity: 68,
-        status: "Manual Review Required",
-        confidence: 0.81,
-        landmarksMatched: "51 / 68 Biometric Points",
-        livenessCheck: "Moderate Confidence (Possible lighting/angle difference)",
-        documentPhotoUrl: "/assets/demo-doc-face-daniel.png",
-        presentedPhotoUrl: "/assets/demo-live-face-daniel.png",
-        assessment: "Facial similarity meets baseline but variation in jawline/eyewear requires officer confirmation.",
-        methodology: "SIH Scenario 2 Preset",
-      };
-    }
-
-    if (scenario === "scenario-3") {
-      return {
-        isProvided: true,
-        similarity: 52,
-        status: "Mismatch / Suspect",
-        confidence: 0.89,
-        landmarksMatched: "38 / 68 Biometric Points",
-        livenessCheck: "Live Present",
-        documentPhotoUrl: "/assets/demo-doc-face-elena.png",
-        presentedPhotoUrl: "/assets/demo-live-face-elena.png",
-        assessment: "Low similarity score. Significant discrepancies in interpupillary distance and nose contour.",
-        methodology: "SIH Scenario 3 Preset",
-      };
-    }
-
-    if (scenario === "scenario-4") {
-      return {
-        isProvided: true,
-        similarity: 38,
-        status: "Mismatch / Suspect",
-        confidence: 0.93,
-        landmarksMatched: "24 / 68 Biometric Points",
-        livenessCheck: "Potential Presentation Attack / Photo Substitute",
-        documentPhotoUrl: "/assets/demo-doc-face-tariq.png",
-        presentedPhotoUrl: "/assets/demo-live-face-tariq.png",
-        assessment: "Severe mismatch. Biometric feature vectors diverge from passport photo. Possible identity impersonation.",
-        methodology: "SIH Scenario 4 Preset",
-      };
-    }
-
-    // =========================================================================
-    // BRANCH B: REAL DOCUMENT & PHOTO PROCESSING
-    // =========================================================================
-
-    // Case B1: No presented/live photo was uploaded
+  static async compare(documentFile = null, livePhotoFile = null) {
+    // No presented/live photo was uploaded
     if (!livePhotoFile || !livePhotoFile.path || !fs.existsSync(livePhotoFile.path)) {
       return {
         isProvided: false,
