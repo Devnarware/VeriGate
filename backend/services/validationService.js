@@ -1,125 +1,16 @@
 // validationService.js
 // Rule-based document consistency & integrity validation engine
-// Consumes actual OCR and MRZ output with explicit check explanations.
 
 export class ValidationService {
   /**
    * Validate document rules against extracted attributes
    * @param {string} documentType
    * @param {object} ocrData - Extracted OCR/MRZ data
-   * @param {string|null} scenario - SIH scenario ID or null for real
    */
-  static validate(documentType, ocrData = {}, scenario = null) {
+  static validate(documentType, ocrData = {}) {
     const issues = [];
     const checksPerformed = [];
     let score = 96;
-
-    // =========================================================================
-    // BRANCH A: DETERMINISTIC SIH DEMO SCENARIOS
-    // =========================================================================
-    if (scenario === "scenario-1") {
-      return {
-        score: "96%",
-        numericScore: 96,
-        passed: true,
-        status: "pass",
-        issues: [],
-        checksPerformed: [
-          "Required identity fields present",
-          "Document number format valid",
-          "Expiration date valid (May 2032)",
-          "MRZ check digits verified",
-          "Issue/Expiry chronology consistent"
-        ],
-        summary: "Document format and dates are consistent with issuance standards.",
-      };
-    }
-
-    if (scenario === "scenario-2") {
-      return {
-        score: "72%",
-        numericScore: 72,
-        passed: true,
-        status: "warning",
-        issues: [
-          {
-            rule: "STAY_DURATION_DISCREPANCY",
-            field: "stayDuration",
-            severity: "Medium",
-            message: "Visa validity duration (90 Days) contradicts immigration stamp limit (30 Days).",
-          },
-        ],
-        checksPerformed: [
-          "Required visa fields present",
-          "Visa number format valid",
-          "Stay duration check",
-          "Issuing authority check"
-        ],
-        summary: "Visa validity duration (90 Days) contradicts immigration stamp limit (30 Days).",
-      };
-    }
-
-    if (scenario === "scenario-3") {
-      return {
-        score: "60%",
-        numericScore: 60,
-        passed: false,
-        status: "warning",
-        issues: [
-          {
-            rule: "EXPIRATION_CHRONOLOGY_MISMATCH",
-            field: "dateOfExpiry",
-            severity: "High",
-            message: "Visual expiration date does not align with encrypted MRZ checksum year.",
-          },
-          {
-            rule: "IDENTITY_DATE_INCONSISTENCY",
-            field: "dateOfBirth",
-            severity: "Medium",
-            message: "Visual date of birth has discrepancy with underlying machine-readable zone.",
-          },
-        ],
-        checksPerformed: [
-          "MRZ checksum verification",
-          "Cross-field date comparison",
-          "Visual zone vs machine zone alignment"
-        ],
-        summary: "Visual expiration date does not align with encrypted MRZ checksum year; Visual date of birth has discrepancy with underlying machine-readable zone.",
-      };
-    }
-
-    if (scenario === "scenario-4") {
-      return {
-        score: "54%",
-        numericScore: 54,
-        passed: false,
-        status: "fail",
-        issues: [
-          {
-            rule: "CHECKSUM_INTEGRITY_FAILURE",
-            field: "mrz",
-            severity: "High",
-            message: "Machine Readable Zone check digit mismatch detected in document number.",
-          },
-          {
-            rule: "SECURITY_ZONE_ANOMALY",
-            field: "issuingCountry",
-            severity: "High",
-            message: "Issuing country security code format fails ICAO 9303 compliance standard.",
-          },
-        ],
-        checksPerformed: [
-          "ICAO 9303 compliance check",
-          "MRZ check digit validation",
-          "Issuing state security code check"
-        ],
-        summary: "Machine Readable Zone check digit mismatch detected in document number; Issuing country security code format fails ICAO 9303 compliance standard.",
-      };
-    }
-
-    // =========================================================================
-    // BRANCH B: REAL DOCUMENT VALIDATION (CONSUMING ACTUAL OCR OUTPUT)
-    // =========================================================================
 
     // CHECK 1: Required Fields Check
     checksPerformed.push("Required identity attributes inspection");

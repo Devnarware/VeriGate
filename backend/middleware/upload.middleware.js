@@ -12,14 +12,14 @@ if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
 
-const ALLOWED_MIMES = ["image/jpeg", "image/png", "image/webp", "application/pdf"];
-const ALLOWED_EXTS = [".jpg", ".jpeg", ".png", ".webp", ".pdf"];
+// Only standard raster image formats supported by Tesseract & Jimp
+const ALLOWED_MIMES = ["image/jpeg", "image/png", "image/webp"];
+const ALLOWED_EXTS = [".jpg", ".jpeg", ".png", ".webp"];
 
 const MIME_TO_EXT = {
   "image/jpeg": ".jpg",
   "image/png": ".png",
   "image/webp": ".webp",
-  "application/pdf": ".pdf",
 };
 
 const storage = multer.diskStorage({
@@ -44,12 +44,17 @@ const fileFilter = (req, file, cb) => {
   if (isMimeAllowed && isExtAllowed) {
     cb(null, true);
   } else {
-    cb(new Error("Unsupported file type or extension. Only standard JPG, PNG, WEBP, or PDF are accepted."), false);
+    cb(
+      new Error(
+        "Unsupported file type. VeriGate accepts high-resolution JPG, JPEG, PNG, or WEBP image documents only (PDFs are not accepted for optical analysis)."
+      ),
+      false
+    );
   }
 };
 
 export const upload = multer({
   storage,
-  limits: { fileSize: 10 * 1024 * 1024 }, // 10MB
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
   fileFilter,
 });

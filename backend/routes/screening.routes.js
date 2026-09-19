@@ -1,24 +1,18 @@
 // screening.routes.js
 import { Router } from "express";
-import {
-  analyzeDocument,
-  getScreeningHistory,
-  getScreeningById,
-  getDemoScenarios,
-} from "../controllers/screening.controller.js";
 import { upload } from "../middleware/upload.middleware.js";
+import { analyzeDocument } from "../controllers/screening.controller.js";
 
 const router = Router();
 
-// Multi-file upload: document (mandatory for real uploads) and livePhoto (optional)
-const uploadFields = upload.fields([
-  { name: "document", maxCount: 1 },
-  { name: "livePhoto", maxCount: 1 },
-]);
-
-router.post("/analyze", uploadFields, analyzeDocument);
-router.get("/history", getScreeningHistory);
-router.get("/scenarios", getDemoScenarios);
-router.get("/:id", getScreeningById);
+// POST /api/screening/analyze — Main document verification endpoint
+router.post(
+  "/analyze",
+  upload.fields([
+    { name: "document", maxCount: 1 },
+    { name: "livePhoto", maxCount: 1 },
+  ]),
+  analyzeDocument
+);
 
 export default router;

@@ -1,63 +1,50 @@
 import { useState, useEffect } from "react";
-import { Bell, Search } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { ScanLine } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 import { api } from "../../utils/api";
 
 export default function Topbar() {
-  const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useState("");
-  const [alertCount, setAlertCount] = useState(3);
+  const location = useLocation();
+  const [isOperational, setIsOperational] = useState(true);
 
   useEffect(() => {
-    async function loadAlerts() {
+    let mounted = true;
+    async function checkSystem() {
       try {
-        const res = await api.getAlerts("?status=New");
-        if (res?.data) {
-          setAlertCount(res.data.length);
+        const res = await api.checkHealth();
+        if (mounted && res?.status === "operational") {
+          setIsOperational(true);
         }
-      } catch (err) {
-        // silent fallback
+      } catch {
+        if (mounted) setIsOperational(false);
       }
     }
-    loadAlerts();
+    checkSystem();
+    return () => {
+      mounted = false;
+    };
   }, []);
-
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    if (searchTerm.trim()) {
-      navigate(`/history?search=${encodeURIComponent(searchTerm.trim())}`);
-    }
-  };
 
   return (
     <header className="topbar">
-      <form onSubmit={handleSearchSubmit} className="topbar-search">
-        <Search size={18} />
-        <input
-          type="text"
-          placeholder="Search screening ID, passport or person..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </form>
+      <div className="topbar-title-area">
+        <span className="topbar-crumb">
+          {location.pathname === "/scan" ? "Document Screening" : "Overview"}
+        </span>
+      </div>
 
       <div className="topbar-actions">
-        <button
-          className="icon-button"
-          title="Security Alerts"
-          onClick={() => navigate("/alerts")}
-        >
-          <Bell size={19} />
-          {alertCount > 0 && <span className="notification-dot"></span>}
-        </button>
-
-        <div className="officer-profile" onClick={() => navigate("/settings")} style={{ cursor: "pointer" }}>
-          <div className="avatar">AS</div>
-          <div className="officer-info">
-            <strong>Alex Singh</strong>
-            <span>Security Officer</span>
-          </div>
+        <div className="system-pill" title="Verification Engine Status">
+          <span className={`status-indicator ${isOperational ? "online" : "offline"}`}></span>
+          <span>{isOperational ? "Engine Ready" : "Connecting..."}</span>
         </div>
+
+        {location.pathname !== "/scan" && (
+          <Link to="/scan" className="topbar-cta-button">
+            <ScanLine size={16} />
+            <span>New Scan</span>
+          </Link>
+        )}
       </div>
     </header>
   );

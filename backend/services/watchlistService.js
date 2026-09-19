@@ -1,5 +1,7 @@
 // watchlistService.js
-// Prototype Watchlist screening against active security alerts & Interpol records
+// Prototype watchlist screening against local database entries
+// NOTE: This checks against a LOCAL prototype database only.
+// It is NOT connected to any authoritative source (Interpol, government, etc.)
 import { db } from "../config/db.js";
 
 export class WatchlistService {
@@ -8,69 +10,10 @@ export class WatchlistService {
    * @param {string|null} personName
    * @param {string|null} documentNumber
    * @param {string|null} nationality
-   * @param {string|null} scenario - SIH scenario ID or null for real
    */
-  static check(personName = null, documentNumber = null, nationality = null, scenario = null) {
+  static check(personName = null, documentNumber = null, nationality = null) {
     const watchlist = db.get("watchlist");
 
-    // =========================================================================
-    // BRANCH A: DETERMINISTIC SIH DEMO SCENARIOS
-    // =========================================================================
-    if (scenario === "scenario-4") {
-      const match = watchlist.find((w) => w.id === "WL-001") || {
-        id: "WL-001",
-        name: "Tariq Al-Mansoor",
-        documentNumber: "M90124881",
-        nationality: "Syrian",
-        reason: "Suspected Identity Forgery & Transnational Fraud Network",
-        status: "ACTIVE",
-        riskLevel: "CRITICAL",
-        source: "Interpol Red Notice #A-2025-9921",
-      };
-      return {
-        matched: true,
-        matchCount: 1,
-        matchDetails: match,
-        matchType: "Scenario 4 Preset",
-        status: "ALERT",
-        summary: `MATCH: ${match.name} flagged under ${match.source} (${match.reason})`,
-      };
-    }
-
-    if (scenario === "scenario-3") {
-      const match = watchlist.find((w) => w.id === "WL-005") || {
-        id: "WL-005",
-        name: "Elena Rostova",
-        documentNumber: "P89123450",
-        nationality: "Ukrainian",
-        reason: "Suspicious Document Tampering & Altered Expiry Date",
-        status: "ACTIVE",
-        riskLevel: "HIGH",
-        source: "Airport Security Checkpoint Advisory",
-      };
-      return {
-        matched: true,
-        matchCount: 1,
-        matchDetails: match,
-        matchType: "Scenario 3 Preset",
-        status: "ALERT",
-        summary: `MATCH: ${match.name} flagged under ${match.source} (${match.reason})`,
-      };
-    }
-
-    if (scenario === "scenario-1" || scenario === "scenario-2") {
-      return {
-        matched: false,
-        matchCount: 0,
-        matchDetails: null,
-        status: "CLEAR",
-        summary: "No matches found across prototype security and immigration watchlists.",
-      };
-    }
-
-    // =========================================================================
-    // BRANCH B: REAL WATCHLIST SEARCH USING ACTUAL OCR-EXTRACTED ATTRIBUTES
-    // =========================================================================
     if (!personName && !documentNumber) {
       return {
         matched: false,
@@ -157,7 +100,7 @@ export class WatchlistService {
       matchReason: null,
       status: "CLEAR",
       matchDetails: null,
-      summary: "No matches found across prototype security and immigration watchlists.",
+      summary: "No matches found in local prototype watchlist database.",
     };
   }
 }

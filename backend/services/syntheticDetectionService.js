@@ -1,6 +1,7 @@
 // syntheticDetectionService.js
 // Heuristic AI-Generated & Synthetic Document Detection Engine
-// Inspects edge sharpness distribution, texture uniformity, template aspect ratio, and generator metadata.
+// NOTE: Uses Laplacian edge variance and texture uniformity heuristics.
+// Cannot definitively prove a document is synthetic or authentic.
 
 import { Jimp } from "jimp";
 import fs from "fs";
@@ -10,82 +11,9 @@ export class SyntheticDetectionService {
    * Analyze document image for synthetic / AI-generation heuristics
    * @param {string} documentType - Passport, Visa, National ID, etc.
    * @param {object|null} fileInfo - Multer file object
-   * @param {string|null} scenario - SIH scenario ID or null for real
    */
-  static async analyze(documentType, fileInfo = null, scenario = null) {
-    // Branch A: Deterministic SIH Demo Scenarios
-    if (scenario === "scenario-1") {
-      return {
-        syntheticScore: 5,
-        suspicionLevel: "LOW_SUSPICION",
-        indicators: [],
-        metrics: {
-          edgeVariance: 42.1,
-          textureUniformityScore: 18.4,
-          aspectRatio: 1.42,
-          aspectRatioAnomaly: false,
-          aiMetadataFound: false,
-        },
-        methodology: "SIH Scenario 1 Preset",
-        limitations: "Preset demonstration mode.",
-      };
-    }
-
-    if (scenario === "scenario-2") {
-      return {
-        syntheticScore: 20,
-        suspicionLevel: "LOW_SUSPICION",
-        indicators: ["Minor background texture variation in visa stamp quadrant."],
-        metrics: {
-          edgeVariance: 36.8,
-          textureUniformityScore: 24.1,
-          aspectRatio: 1.38,
-          aspectRatioAnomaly: false,
-          aiMetadataFound: false,
-        },
-        methodology: "SIH Scenario 2 Preset",
-        limitations: "Preset demonstration mode.",
-      };
-    }
-
-    if (scenario === "scenario-3") {
-      return {
-        syntheticScore: 45,
-        suspicionLevel: "MEDIUM_SUSPICION",
-        indicators: ["Localized edge feathering and synthetic blending along portrait boundary."],
-        metrics: {
-          edgeVariance: 22.4,
-          textureUniformityScore: 48.6,
-          aspectRatio: 1.41,
-          aspectRatioAnomaly: false,
-          aiMetadataFound: false,
-        },
-        methodology: "SIH Scenario 3 Preset",
-        limitations: "Preset demonstration mode.",
-      };
-    }
-
-    if (scenario === "scenario-4") {
-      return {
-        syntheticScore: 82,
-        suspicionLevel: "HIGH_SUSPICION",
-        indicators: [
-          "Non-standard substrate frequency spectrum: High-frequency grain erasure consistent with synthetic rendering.",
-          "Synthetic artifact pattern detected in guilloche security background.",
-        ],
-        metrics: {
-          edgeVariance: 11.2,
-          textureUniformityScore: 81.3,
-          aspectRatio: 1.42,
-          aspectRatioAnomaly: false,
-          aiMetadataFound: false,
-        },
-        methodology: "SIH Scenario 4 Preset",
-        limitations: "Preset demonstration mode.",
-      };
-    }
-
-    // Branch B: Real Document Heuristic Analysis
+  static async analyze(documentType, fileInfo = null) {
+    // Real Document Heuristic Analysis
     const hasPath = fileInfo?.path && fs.existsSync(fileInfo.path);
     const hasBuffer = Buffer.isBuffer(fileInfo) || Buffer.isBuffer(fileInfo?.buffer);
     if (!hasPath && !hasBuffer) {

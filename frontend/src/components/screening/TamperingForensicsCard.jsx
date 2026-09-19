@@ -1,71 +1,75 @@
-import { ScanLine, AlertTriangle, CheckCircle2, ShieldCheck, Cpu } from "lucide-react";
+import { AlertTriangle, CheckCircle2, Info } from "lucide-react";
 
-export default function TamperingForensicsCard({ tamperingData }) {
+export default function TamperingForensicsCard({ tamperingData, syntheticData }) {
   if (!tamperingData) return null;
 
   const {
-    tamperingScore = 6,
+    tamperingScore = 0,
     tamperingRisk = "Low",
     indicators = [],
-    details = {},
   } = tamperingData;
 
   const isLow = tamperingRisk === "Low";
   const isMedium = tamperingRisk === "Medium";
-  const isHigh = tamperingRisk === "High" || tamperingRisk === "Critical";
+
+  const syntheticScore = syntheticData?.syntheticScore ?? 0;
+  const syntheticLevel = syntheticData?.suspicionLevel ?? "LOW_SUSPICION";
+  const syntheticIndicators = syntheticData?.indicators ?? [];
 
   return (
     <div className="screening-card forensics-card">
       <div className="screening-section-header">
         <div>
-          <h2>Tampering & Forgery Forensics</h2>
-          <p>Optical image forensics, Error Level Analysis (ELA), and substrate integrity scans.</p>
+          <h2>Image Forensics & Tampering Indicators</h2>
+          <p>Optical compression anomaly scanning (ELA) and edge-variance heuristics.</p>
         </div>
         <div className={`tampering-badge ${isLow ? "low" : isMedium ? "medium" : "high"}`}>
-          Tampering Risk: {tamperingRisk} ({tamperingScore}/100)
+          Tampering Indicator: {tamperingRisk} ({tamperingScore}/100)
         </div>
       </div>
 
-      <div className="forensics-grid">
-        <div className="forensics-item">
+      <div className="forensics-metrics-row">
+        <div className="metric-box">
           <span>Error Level Analysis (ELA)</span>
-          <strong>{details.elaAnalysis || "Uniform quantization levels"}</strong>
+          <strong>{isLow ? "Uniform Quantization" : "Compression Inconsistencies"}</strong>
+          <small>Measures resaving artifact distribution</small>
         </div>
 
-        <div className="forensics-item">
-          <span>Font & Kerning Consistency</span>
-          <strong>{details.fontConsistency || "Official security typography matched"}</strong>
-        </div>
-
-        <div className="forensics-item">
-          <span>Photo Boundary Laminate</span>
-          <strong>{details.photoBoundary || "Seamless integration without perimeter blur"}</strong>
-        </div>
-
-        <div className="forensics-item">
-          <span>State Seal & Stamp Integrity</span>
-          <strong>{details.stampIntegrity || "Microprint and official ink verified"}</strong>
+        <div className="metric-box">
+          <span>Synthetic Detection</span>
+          <strong>{syntheticLevel.replace("_", " ")}</strong>
+          <small>Laplacian edge variance ({syntheticScore}/100)</small>
         </div>
       </div>
 
-      {indicators.length > 0 ? (
+      {indicators.length > 0 || syntheticIndicators.length > 0 ? (
         <div className="forensics-alerts">
           <span className="alerts-title">
-            <AlertTriangle size={14} className="text-warning" />
-            Detected Forensic Anomalies ({indicators.length})
+            <AlertTriangle size={15} className="text-warning" />
+            Detected Optical Anomalies ({indicators.length + syntheticIndicators.length})
           </span>
           <ul>
             {indicators.map((indicator, idx) => (
-              <li key={idx}>{indicator}</li>
+              <li key={`tamp-${idx}`}>{indicator}</li>
+            ))}
+            {syntheticIndicators.map((indicator, idx) => (
+              <li key={`synth-${idx}`}>{indicator}</li>
             ))}
           </ul>
         </div>
       ) : (
         <div className="forensics-clean">
           <CheckCircle2 size={16} className="text-success" />
-          <span>No digital splicing, font alterations, or physical photo replacements detected.</span>
+          <span>No digital compression spikes or synthetic edge patterns detected by heuristic algorithms.</span>
         </div>
       )}
+
+      <div className="limitation-footnote">
+        <Info size={13} />
+        <span>
+          <strong>Forensics Limitation:</strong> Error Level Analysis and Laplacian heuristics evaluate digital compression artifacts and edge sharpness. They cannot verify physical document substrates, UV security threads, holograms, or watermarks.
+        </span>
+      </div>
     </div>
   );
 }
