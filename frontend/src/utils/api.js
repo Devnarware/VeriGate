@@ -41,4 +41,43 @@ export const api = {
 
   // System Health
   checkHealth: () => fetchApi("/health"),
+
+  // Case History & Audit Trail
+  getCases: (params = {}) => {
+    const query = new URLSearchParams(params).toString();
+    return fetchApi(`/cases${query ? `?${query}` : ""}`);
+  },
+  getCaseStats: () => fetchApi("/cases/stats"),
+  getCaseById: (id) => fetchApi(`/cases/${id}`),
+  updateOfficerAction: (id, action, notes) =>
+    fetchApi(`/cases/${id}/action`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action, notes }),
+    }),
+  clearCases: () =>
+    fetchApi("/cases/clear", {
+      method: "POST",
+    }),
+
+  // Watchlist Management Simulator
+  getWatchlist: () => fetchApi("/watchlist"),
+  addWatchlistRecord: (record) =>
+    fetchApi("/watchlist", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(record),
+    }),
+  toggleWatchlistStatus: (id) =>
+    fetchApi(`/watchlist/${id}/toggle`, {
+      method: "PATCH",
+    }),
+  deleteWatchlistRecord: (id) =>
+    fetchApi(`/watchlist/${id}`, {
+      method: "DELETE",
+    }),
+  resetWatchlist: () =>
+    fetchApi("/watchlist/reset", {
+      method: "POST",
+    }),
 };

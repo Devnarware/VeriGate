@@ -2,7 +2,7 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { initialWatchlist, initialSettings } from "../data/seedData.js";
+import { initialWatchlist, initialSettings, initialCases } from "../data/seedData.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -13,6 +13,7 @@ class DataStore {
     this.data = {
       watchlist: [],
       settings: {},
+      cases: [],
     };
     this.init();
   }
@@ -23,8 +24,11 @@ class DataStore {
         const raw = fs.readFileSync(DATA_FILE, "utf-8");
         this.data = JSON.parse(raw);
         // Ensure required collections exist
-        if (!this.data.watchlist) this.data.watchlist = [...initialWatchlist];
+        if (!this.data.watchlist || !Array.isArray(this.data.watchlist)) this.data.watchlist = [...initialWatchlist];
         if (!this.data.settings) this.data.settings = { ...initialSettings };
+        if (!this.data.cases || !Array.isArray(this.data.cases) || this.data.cases.length === 0) {
+          this.data.cases = [...initialCases];
+        }
       } else {
         this.seed();
       }
@@ -38,6 +42,7 @@ class DataStore {
     this.data = {
       watchlist: [...initialWatchlist],
       settings: { ...initialSettings },
+      cases: [...initialCases],
     };
     this.persist();
     console.log("[DataStore] Initialized with clean prototype data");

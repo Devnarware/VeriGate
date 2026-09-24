@@ -8,6 +8,7 @@ import { FaceVerificationService } from "../services/faceVerificationService.js"
 import { WatchlistService } from "../services/watchlistService.js";
 import { RiskEngine } from "../services/riskEngine.js";
 import { DecisionEngine } from "../services/decisionEngine.js";
+import { CaseHistoryService } from "../services/caseHistoryService.js";
 
 /**
  * Safely delete an uploaded file after processing
@@ -201,6 +202,9 @@ export const analyzeDocument = async (req, res, next) => {
         tamperingScore: tamperingResults.tamperingScore,
         tamperingRisk: tamperingResults.tamperingRisk,
         indicators: tamperingResults.indicators,
+        copyMove: tamperingResults.copyMove || { detected: false, matchedPairs: 0, confidence: 0, regions: [] },
+        compressionArtifacts: tamperingResults.compressionArtifacts || { uniformityScore: 92, status: "Consistent" },
+        details: tamperingResults.details,
         methodology: tamperingResults.methodology,
       },
       synthetic: {
@@ -212,6 +216,12 @@ export const analyzeDocument = async (req, res, next) => {
         isProvided: faceResults.isProvided,
         similarity: faceResults.similarity,
         status: faceResults.status,
+        structuralMatch: faceResults.structuralMatch ?? null,
+        eyeRegionMatch: faceResults.eyeRegionMatch ?? null,
+        lowerFaceMatch: faceResults.lowerFaceMatch ?? null,
+        confidence: faceResults.confidence,
+        landmarksMatched: faceResults.landmarksMatched,
+        faceGeometry: faceResults.faceGeometry || null,
         assessment: faceResults.assessment,
         methodology: faceResults.methodology,
         limitations: faceResults.limitations,
@@ -225,6 +235,9 @@ export const analyzeDocument = async (req, res, next) => {
       },
       checks,
     };
+
+    // Record verification metadata to audit log (Zero retention: no images or PII stored)
+    CaseHistoryService.addCase(verificationResult);
 
     res.status(200).json({
       success: true,

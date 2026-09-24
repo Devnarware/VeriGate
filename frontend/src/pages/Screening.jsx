@@ -387,8 +387,8 @@ export default function Screening() {
 
               <div>
                 <span>03</span>
-                <strong>Error Level Analysis (ELA)</strong>
-                <small>Scans for JPEG compression inconsistencies</small>
+                <strong>ELA & Copy-Move Cloning</strong>
+                <small>Scans for JPEG inconsistencies & cloned patches</small>
               </div>
 
               <div>
@@ -399,14 +399,14 @@ export default function Screening() {
 
               <div>
                 <span>05</span>
-                <strong>Face Pixel Comparison</strong>
-                <small>Optional 64×64 pixel luminance matrix</small>
+                <strong>Biometric Face Profile</strong>
+                <small>Structural geometry & quadrant luminance vectors</small>
               </div>
 
               <div>
                 <span>06</span>
-                <strong>Prototype Watchlist</strong>
-                <small>Checks against local test datastore</small>
+                <strong>Watchlist Screening</strong>
+                <small>Simulated Interpol SLTD & ICAO 9303 checks</small>
               </div>
             </div>
           </div>

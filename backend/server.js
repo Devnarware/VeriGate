@@ -64,6 +64,9 @@ const apiInfoHandler = (req, res) => {
     endpoints: {
       health: "/api/health",
       analyze: "/api/screening/analyze",
+      cases: "/api/cases",
+      caseStats: "/api/cases/stats",
+      watchlist: "/api/watchlist",
     },
   });
 };
