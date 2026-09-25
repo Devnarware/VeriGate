@@ -28,24 +28,56 @@ app.use((req, res, next) => {
   next();
 });
 
-// Configured CORS Allowlist
-const ALLOWED_ORIGINS = process.env.ALLOWED_ORIGINS
-  ? process.env.ALLOWED_ORIGINS.split(",").map((o) => o.trim())
-  : ["http://localhost:5173", "http://localhost:3000", "http://127.0.0.1:5173", "http://127.0.0.1:3000"];
+// Configured CORS Allowlist & Dynamic Origin Checker
+const rawAllowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:3000",
+  "http://127.0.0.1:5173",
+  "http://127.0.0.1:3000",
+  ...(process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(",").map((o) => o.trim()) : []),
+  ...(process.env.FRONTEND_URL ? [process.env.FRONTEND_URL.trim()] : []),
+  ...(process.env.CLIENT_URL ? [process.env.CLIENT_URL.trim()] : []),
+].filter(Boolean);
+
+const isOriginAllowed = (origin) => {
+  // Allow requests with no origin (e.g. mobile apps, curl, server-to-server)
+  if (!origin) return true;
+
+  // Wildcard allow all if configured
+  if (rawAllowedOrigins.includes("*") || process.env.ALLOW_ALL_ORIGINS === "true") {
+    return true;
+  }
+
+  // Exact match from allowed list
+  if (rawAllowedOrigins.includes(origin)) return true;
+
+  // Allow any Vercel deployment preview or production domain (*.vercel.app)
+  if (/^https:\/\/([a-zA-Z0-9-]+\.)*vercel\.app$/.test(origin)) return true;
+
+  // Allow any localhost / loopback port for local development
+  if (/^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) return true;
+
+  return false;
+};
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (e.g. mobile apps, curl, server-to-server)
-      if (!origin || ALLOWED_ORIGINS.includes(origin)) {
+      if (isOriginAllowed(origin)) {
         return callback(null, true);
       }
-      return callback(new Error(`CORS policy does not allow access from origin ${origin}`));
+      console.warn(`[CORS] Rejected request from origin: ${origin}`);
+      return callback(null, false);
     },
-    methods: ["GET", "POST", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "Accept"],
+    optionsSuccessStatus: 200,
   })
 );
+
+// Explicit preflight handling
+app.options("*", cors());
 
 app.use(express.json({ limit: "1mb" }));
 app.use(express.urlencoded({ extended: true, limit: "1mb" }));

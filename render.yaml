@@ -10,3 +10,7 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
+      - key: ALLOWED_ORIGINS
+        value: https://veri-gate-kn5d.vercel.app
+      - key: FRONTEND_URL
+        value: https://veri-gate-kn5d.vercel.app
